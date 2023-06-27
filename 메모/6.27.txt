@@ -1,0 +1,39 @@
+6.27 
+
+<자바>
+
+- switch문에서 마지막 default는 break 생략 가능
+- 범위 잡고 tab 누르면 오른쪽으로 이동
+  shift + tab은 왼쪽 이동
+- substring(시작번호,끝번호) : 번호는 0부터 시작, 끝번호는 자릿수 번호에서 -1 입력 
+- while문 : 처음부터 조건 검사, 조건 만족하지 않으면 실행 x
+- do~while : 처음 한번은 무조건 실행, 두번째부터 조건 검사
+- for문 : for (초기화식; 조건식; 증감식) {
+
+
+<html>
+
+box-sizing : border-box 테두리까지 포함해서 너빗값을 지정
+box-sizing : content-box 콘텐츠 영역만 너빗값을 지정
+box-shadow 수평거리 수직거리 흐림정도 번짐정도 색상(한 박스에 중복으로 그림자 넣을 수 x) 
+inset : 이 키워드를 함께 표시하면 안쪽 그림자로 그려짐
+예) -5px 0 green : 박스 왼쪽 선 바깥에 초록색 그림자
+  inset -5px 0 green : 박스 오른쪽 선 안쪽에 초록색 그림자
+
+
+border-top
+border-left   -> 특정선만 만들 수 있다
+
+-선 종류
+
+solid : 실선
+dotted : 점선
+dashed : 파선
+double : 이중선(border-width : 두 선 사이 간격)
+
+
+padding : 10px 0 -> 사면에 여백 10을 주고 좌우에 여백을 0으로 만들어서 왼쪽 여백을 줄여줌
+
+border-width : 5px -> 모든 면 선 너비 
+border-width : thick thin;   위아래 두껍게 좌우 얇게
+border-width : 10px 5px 5px 10px;  위 오른쪽 아래 왼쪽 (시계방향)
