@@ -1,0 +1,75 @@
+<인터페이스 상속>
+
+- 인터페이스는 클래스와 달리 다중 상속 가능
+  예) public interface 하위클래스 extends 상위인터페이스1, 상위인터페이스2 {...}
+
+
+<인터페이스 자동변환>
+
+- 구현 클래스를 인터페이스 타입으로 변환 
+ 예) Vehicle vehicle = new Bus();
+      구현 클래스 Bus를 인터페이스 Vehicle로 자동 변환시킴으로 
+      Bus에 오버라이딩된 메소드 실행 가능
+
+
+<매개변수의 다형성>
+- 메소드의 매개변수를 인터페이스 타입으로 선언하고 호출할 때는 구현 객체를 대입
+
+예) 
+
+	public class Driver {
+	public void drive(Vehicle vehicle) {
+        		vehicle.run();			
+     	}
+     }					
+
+-----------------------------------------------------------------------------------
+	Driver driver = new Driver();
+	Bus bus = new Bus();
+	driver.drive(bus);	           ->	 Vehicle vehicle = bus;
+  
+
+
+
+< 중첩클래스 & 중첩 인터페이스 >
+
+- 멤버 클래스 : 클래스 멤버로서 선언되는 중첩 클래스
+1. 인스턴스 멤버 클래스 : static 키워드 없이 중첩 선언된 클래스, 정적 필드와 메소드 선언 x
+		     A 클래스 외부에서 B 객체 생성시 A 객체 먼저 생성 후 B 객체 생성
+		     A 클래스 내부에서는 B 객체 바로 생성
+
+2. 정적 멤버 클래스 : static 키워드로 중첩 선언된 클래스, 모든 종류의 필드와 메소드 선언 o
+		  A 클래스 외부에서 정적 멤버 클래스 C 객체 생성시 예시처럼 함
+		  예) A.C c = new A.C();
+           		  
+
+- 로컬 클래스 : 생성자 또는 메소드 내부에서 선언되는 중첩 클래스
+
+
+class A  {
+     class B {
+       int field;
+       void method(){ }
+  }
+}
+
+-  A 클래스 외부에서 B 객체를 생성하려면 먼저 A 객체를 생성 후 B 객체 생성
+
+예 ) 
+
+-- A 클래스 외부 --
+
+A a = new A();
+     A.B b = a.new B(); 
+     b.method();
+
+-- A 클래스 내부 --
+
+class A  {
+     class B {...}
+       
+    void methodA() {
+    B b = new B();
+    int field;
+  }
+}
