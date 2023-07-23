@@ -39,37 +39,12 @@
 		     A 클래스 내부에서는 B 객체 바로 생성
 
 2. 정적 멤버 클래스 : static 키워드로 중첩 선언된 클래스, 모든 종류의 필드와 메소드 선언 o
-		  A 클래스 외부에서 정적 멤버 클래스 C 객체 생성시 예시처럼 함
+		  A 클래스 외부에서 정적 멤버 클래스 A 객체 생성할 필요 X
 		  예) A.C c = new A.C();
            		  
 
 - 로컬 클래스 : 생성자 또는 메소드 내부에서 선언되는 중첩 클래스
+		접근 제한자(public, private) 및 static 붙일 수 없음
+		정적 필드와 메소드 선언 x
 
 
-class A  {
-     class B {
-       int field;
-       void method(){ }
-  }
-}
-
--  A 클래스 외부에서 B 객체를 생성하려면 먼저 A 객체를 생성 후 B 객체 생성
-
-예 ) 
-
--- A 클래스 외부 --
-
-A a = new A();
-     A.B b = a.new B(); 
-     b.method();
-
--- A 클래스 내부 --
-
-class A  {
-     class B {...}
-       
-    void methodA() {
-    B b = new B();
-    int field;
-  }
-}
