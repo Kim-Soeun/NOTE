@@ -1,0 +1,88 @@
+<예외 클래스>
+
+- 일반 예외 : 컴파일 하는 과정에서 해당 예외 처리 코드가 있는지 검사,
+                   RuntimeException 하위 클래스 x
+- 실행 예외 : 컴파일 과정에서 예외 처리 코드 검사 x,  실행 시 예측할 수 없이 발생
+	      RuntimeException 하위 클래스
+
+- 예외가 발생하면 프로그램 종료됨
+
+
+
+<예외 종류>
+
+1. NullPointerException 
+: 객체 참조가 없는 상태, 객체가 없는 상태에서 객체를 사용할 때 발생
+
+
+2. ArrayIndexOutOfBoundsException 
+: 배열에서 인덱스 범위를 초과할 경우 발생
+
+예) int arr[] = new arr[3];
+   arr[3] 는 인덱스 범위 초과로 예외발생
+
+
+3.  NumberFormatException 
+: 문자열을 숫자로 변경하는 Integer.parseInt(Stinng s) 같은 코드 사용할 때 문자열에 숫자로 변환될 수 없는 문자가 포함되어 있는 경우 발생
+
+예) String data1 = "a100";
+   int value2 = Integer.parseInt(data1);  --> 예외발생
+
+
+4. ClassCastException 
+:  부모, 자식 같은 관계가 아니라면 다른 타입으로 변환할 수 없기 때문에 예외 발생
+	 
+예) 상위 클래스: Animal,   하위 클래스 : Dog, Cat
+Animal animal = new Dog();
+Dog dog = (Dog) animal; --> 오류 x
+Cat cat = (Cat) animal; --> 오류 발생
+
+
+
+
+
+<예외 처리 코드>
+
+- 일반 예외가 발생할 가능성이 있는 코드를 발견하면 컴파일 에러를 발생시켜 
+  개발자가 강제적으로 예외처리코드를 작성하도록 요구
+
+- try-catch-finally : 생성자 내부와 메소드 내부에서 작성
+                      일반 예외와 실행 예외를 예외 처리할 수 있도록 해줌
+- finally 블록은 생략 가능, 예외 발생 여부 상관없이 항사 실행할 내용이 있을 경우에만 
+작성해주면 됨, try와 catch 블록에서 return문 사용하더라도 finally는 항상 실행됨
+
+
+try {
+
+	예외 발생가능 코드
+
+} catch(예외클래스 e) {
+
+   	예외처리
+
+} finally {
+
+	항상 실행;
+
+}
+
+
+<다중 catch>
+
+- 다양한 예외 발생할 수 있으니 여러개의 catch문을 사용
+- 상위 예외 클래스가 하위 예외 클래스보다 아래 있어야 함
+
+예 ) 	catch(ArrayIndexOutOfBoundsException e) {
+	예외 처리1
+	} catch(Exception e){
+	예외 처리2
+	}
+
+
+<예외 떠넘기기>
+
+- 경우에 따라 메소드가 호출한 곳으로 예외를 떠넘길 수 있음, throws 사용
+
+예) public void method1() throws ClassNotFoundException {
+method2();
+}
