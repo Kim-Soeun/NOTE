@@ -1,0 +1,81 @@
+< Object 클래스 >
+
+- 자바의 모든 클래스는 Object 클래스의 자식이거나 자손 클래스
+- Object는 자바의 최상위 부모 클래스
+
+
+1. 객체 비교(equals())
+
+- Object 클래스의 메소드
+  : public boolean equals(Object obj) {...}
+
+- 메소드의 매개타입은 Object, 모든 객체가 매개값으로 대입될 수 있음
+- 두 객체가 동일한 객체라면 true, 그렇지 않으면 false 리턴함
+- equals() 메소드를 재정희할 때는 매개값이 기준 객체와 동일한 타입의 객체인지 먼저 확인
+- 동일한 타입이라면 기준 객체 타입으로 강제변환하여 필드값이 동일한지 검사
+- 모두 동일하면 true, 아니면 false 리턴함
+
+ex) @Override
+    public boolean equals(Object obj) {
+      if (obj instanceof Member) {		// 매개값이 Member 타입인지 확인
+        Member member = (Member) obj;	// Member 타입으로 강제 변환 후
+        if (id.equals(member.id)) {		// id 필드값이 동일한지 검사해서 동일하면 true 리턴
+           return true;
+         }
+       }
+       return false; 				// 매개값이 Member 타입이 아니거나 id가 다른 경우 false 리턴
+
+
+
+2. 객체 해쉬코드(hashCode())
+
+- 객체를 식별하는 하나의 정수값
+- 객체의 메모리 번지를 이용해서 해쉬코드 리턴, 객체마다 다른 값을 가짐
+- 객체의 동등비교를 위해서는 equals()뿐 아니라 hashCode() 메소드도 재정의해서
+  논리적으로 동등한 객체일 경우 동일한 해쉬코드가 리턴되도록 해야함
+
+
+
+3. 객체 문자 정보(toString())
+
+- 객체의 문자 정보(객체를 문자열로 표현한 값)를 리턴
+- Object obj = new Object();
+  System.out.println(obj.toString());       -> 출력 : java.lang.Object@de6ced
+
+- 이 리턴값은 값어치 없는 정보이므로 재정의해서 유익한 정보 리턴
+
+ex) Object obj = new Date();
+     System.out.println(obj.toString());       -> 출력 : Mon Apr 29 12:12:36 KST 2019 
+
+ex) @Override
+    public String toString() {
+       return company + ", " + os;            -> toString() 재정의
+
+
+
+
+< System 클래스 >
+
+- System 클래스를 이용하면 운영체제의 일부 기능을 이용할 수 있음
+
+1. 프로그램 종료(exit())
+
+- 종료 상태값
+- System.exit(0);
+- 현재 실행하고 있는 프로세스를 강제 종료
+
+
+2.  현재 시각 읽기
+
+- long time = System.currentTimeMillis();    // 밀리세컨(1/1000)초 long 값 리턴 
+- long time = System.nanoTime();	       // 나노세컨(1/10 9승)초	long 값 리턴
+
+
+
+
+
+
+
+
+
+
