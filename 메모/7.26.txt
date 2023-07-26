@@ -1,0 +1,91 @@
+< Wrapper (포장) 클래스 >
+
+
+- 포장객체 특징 : 포장하고 있는 기본 타입 값은 외부에서 변경 불가능
+- 박싱 : 기본 타입의 값을 포장 객체로 만드는 과정
+         매개값은 기본 타입 or 문자열 삽입, Character 포장 객체는 매개값으로 문자열 x
+
+ex) // 정식 박싱 코드
+    Integer obj = Integer.valueOf(1000)       ->  매개값 : 기본타입
+    Integer obj = Integer.valueOf("100")      ->  매개값 : 문자열
+    Integer obj3 = Integer.valueOf("300");    ->  생성자 이용 x, 포장 클래스에 있는 정적 메소드 valueOf() 사용 
+ 
+    // 자동 박싱
+    Integer obj1 = 100;
+    Integer obj2 = "100";                 ->  불가능, 기본타입으로만 가능   
+
+
+- 언박싱 : 포장 객체에서 기본 타입의 값을 얻어내는 과정
+
+ex)  // 정식 언박싱 코드
+     int value1 = obj1.intValue();
+
+     // 자동 언박싱
+     int value1 = obj1;
+     int value2 = obj1 + 100;
+
+
+- 포장 값 비교
+
+ : 값 비교 위해서 ==와 != 사용하지 않는 것이 좋음
+  ==와 !=는 객체의 참조를 비교하기 때문
+  .equals() 메소드로 내부 값 비교하는 것이 좋음
+
+ex)  Integer obj1 = 300;
+      Integer obj2 = 300;
+      System.out.println("결과 : " + (obj1 == obj2));   ->  false
+      System.out.println(num1.equals(num2));           -> true
+
+
+< Math 클래스 >
+
+- 수학 계산에 사용할 수 있는 메소드를 제공
+- 모두 정적 메소드(static)
+
+1. 절대값 :   int abs(int a), double abs(double a)
+  ex) int v1 = Math.abs(-5);  ->  v1 = 5;
+
+2. 올림값  :  double ceil(double a)
+  ex) double v3 = Math.ceil(5.3)  ->    v3 = 6.0
+       double v4 = Math.ceil(-5.3)  ->   v4 = -5.0  
+
+3. 버림값   : double floor(double a)
+   ex) double v5 = Math.floor(5.3);   ->   v5 = 5.0
+        double v6 = Math.floor(-5.3);  ->   v6 = -6.0
+
+4. 반올림값 : long round(double a)
+   ex) long v14 = Math.round(5.3);   ->    v14 = 5
+       
+5.  랜덤값 : double random()
+   ex) double v15 = Math.random();  ->  0.0 <= v15 <= 1.0
+
+6. 가가운 정수의 실수값 : double rint(double a) 
+   ex) double v16 = Math.rint(5.3)   ->   v16 = 5.0
+        double v17 = Math.rint(5.7)   ->   v16 = 6.0
+
+
+< java.util 패키지 >
+
+- Date 클래스
+
+ : 특정 시점의 날짜와 시간 정보를 저장하는 클래스
+   new 연산자 이용해서 인스턴스 생성 o
+   오전, 오후 정보 x
+   자주 사용 x
+
+  ex) Date now = new Date();
+      SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일 hh시 mm분 ss초");
+      String strNow = sdf.format(now); 
+
+
+
+- Calendar 클래스
+
+ : 운영체제의 날짜와 시간을 얻을 때 사용
+   new 연산자를 사용해서 객체 생성 x
+   추상 클래스
+   오전, 오후 정보 o
+   
+  ex) Calendar now = Calendar.getInstance();
+       int month = now.get(Calendar.MONTH) + 1;          // 월을 리턴  
+       int ampm = now.get(Calendar.AM_PM);           // 오전 : 0   오후 : 1  리턴 
