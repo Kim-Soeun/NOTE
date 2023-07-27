@@ -59,7 +59,7 @@ ex)  Integer obj1 = 300;
 5.  랜덤값 : double random()
    ex) double v15 = Math.random();  ->  0.0 <= v15 <= 1.0
 
-6. 가가운 정수의 실수값 : double rint(double a) 
+6. 가까운 정수의 실수값 : double rint(double a) 
    ex) double v16 = Math.rint(5.3)   ->   v16 = 5.0
         double v17 = Math.rint(5.7)   ->   v16 = 6.0
 
