@@ -81,6 +81,6 @@
 
 - 메인 스레드 이름 : main
 - 직접 생성한 스레드 이름 : Thread-n(n : 스레드의 번호)
-- thread.setName("스레드 이름'");   -> 스레드 이름 변경
+- thread.setName("스레드 이름");   -> 스레드 이름 변경
 - thread.getName(); 	        -> 스레드 이름 호출
 
