@@ -58,7 +58,7 @@
  - 작업 스레드 클래스 정의 하는 방법 
     : Thread 클래스 상속 후 run() 메소드 재정의
 
- ex) public class Worker Thread extends Thread {
+ ex) public class WorkerThread extends Thread {
       @Override
       public void run() {
          스레드가 실행할 코드;
