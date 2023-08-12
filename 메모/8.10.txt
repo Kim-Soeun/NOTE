@@ -1,0 +1,93 @@
+< LIFO 와 FIFO 컬렉션>
+
+
+1. Stack : LIFO 자료구조를 구현한 클래스, 마지막에 들어간 값이 첫번째로 나오는 구조
+
+
+- 메소드 
+     
+     push(E item) : 주어진 객체를 스택에 넣음
+     peek() : 스택의 맨 위 객체를 가져옴, 객체를 스택에서 제거하지 않음
+     pop() : 스택의 맨 위 객체를 가져옴, 객체를 스택에서 제거함
+
+
+- 생성 방법 : Stack<E> stack = new Stack<E>();
+              Stack<E> stack = new Stack<>();
+
+
+2. Queue : FIFO 자료구조에서 사용되는 메소드를 정의하는 인터페이스
+           Queue를 구현한 대표적인 클래스는 LinkedList
+
+- 메소드 
+
+
+    offer(E e) :주어진 객체를 넣음
+    peek() : 객체를 하나 가져옴, 객체를 큐에서 제거하지 않음
+    pop() : 객체를 하나 가져옴, 객체를 큐에서 제거함
+
+- 생성 방법 : Queue<E> queue = new LinkedList<E>();
+              Queue<E> queue = new LinkedList<>();
+
+
+
+
+
+
+<입출력 스트림>
+
+- 스트림 : 데이터가 출발지에서 도착지까지 단방향으로 흘러가는 개념을 의미
+           byte 형태로 데이터를 운반하는데 사용되는 연결통로
+           단방향 통신이기 때문에 하나의 스트림으로 입력과 출력 동시에 처리 x
+           큐(queue)의 FIFO(Fist in First Out) 구조 
+
+
+
+** OutputStream **
+
+
+- 바이트 기반 출력 스트림의 최상위 클래스로 추상 클래스
+- 모든 바이트 기반 출력 스트림 클래스는 OutputStream 클래스 상속받아 만들어짐
+
+
+                          	  OutputStream
+
+     FileOutputStream     PrintStream        BufferOutputStream   DataOutputStream
+
+
+
+- OutputStream 클래스에는 모든 바이트 기반 출력 스트림이
+  기본적으로 가져야 할 메소드가 정의되어 있음
+
+  ex) write(int b) : b의 값을 byte로 변환하여 출력
+      write(byte[] b) : 매개값으로 주어진 배열 b의 모든 바이트를 출력
+      write(byte[] b, int off, int len) : 매개값으로 주어진 배열 b[off]부터 len개까지의 바이트 출력
+      flush() : 출력 버퍼에 잔류하는 모든 바이트를 출력
+      close() : 출력 스트림을 닫음
+
+
+
+
+
+** InputStream **
+
+
+- 바이트 기반 입력 스트림의 최상위 클래스로 추상 클래스
+- 모든 바이트 기반 입력 스트림은 InputStream 상속받아서 만들어짐
+
+
+			           InputStream
+
+    FileInputStream    		BufferedInputStream  		 DataInputStream
+
+
+- InputStream 클래스에는 바이트 기반 입력 스트림이 
+  기본적으로 가져야 할 메소드가 정의되어 있음
+
+  ex) read() : 1byte를 읽고 int 타입(4바이트)으로 리턴함
+               리턴된 4바이트 중 1바이트에만 데이터 들어 있음
+               더 이상 읽을 수 없는 경우 -1을 반환
+      read(byte[] b) : 읽은 바이트를 매개값으로 주어진 배열에 저장하고 읽은 바이트 수 리턴
+      read(byte[] b, int off, int len) : len개의 바이트를 읽고 매개값으로 주어진 배열에서 
+                                         b[off]부터 len개까지 저장, 읽은 바이트 수 리턴
+      close() : 입력 스트림 닫음
+
