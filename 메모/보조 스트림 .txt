@@ -1,0 +1,37 @@
+< 보조 스트림 > 
+
+
+- 다른 스트림과 연결되어 여려가지 편리한 기능을 제공해주는 스트림
+- 자체적으로 입출력 수행할 수 없기에 입출력 소스와 바로 연결되는
+   InputStream, OutputStream, Reader, Writer 등에 연결해서 입출력 수행
+
+
+< 보조 스트림 연결 >
+
+- 보조 스트림 생성시 자신이 연결될 스트림을 다음과 같이 생성자의 매개값으로 제공
+
+ ex)  보조스트림 변수 = new 보조스트림(연결스트림)
+        Input Stream is = FileInputStream('c:/temp/test.txt");
+     InputStreamReader reader = new InputStreamReader(is);
+
+- 생성자 매개값은 InputStream, OutputStream, Reader, Writer 외에 다른 보조 스트림도 가능
+
+ ex) Input Stream is = FileInputStream('c:/temp/test.txt");
+     InputStreamReader reader = new InputStreamReader(is);
+     BufferedReader br = new BufferedReader(reader);
+
+
+< 문자 변환 보조 스트림 >
+
+- 소스 스트림이 바이트 기반 스트림(InputStream, OutputStream, FileInputStream, 
+  FileOutputStream)이면서 입출력 데이터가 문자라면 Reader와 Writer로 변환해서 사용
+
+
+
+1. OutputStreamWriter
+
+- 바이트 기반 출력 스트림에 연결되어 문자 출력 스트림인 Writer로 변환하는 보조 스트림
+- 예를 들어 파일 출력을 위한 바이트 기반 FileOutputStream을 Writer타입으로 변환 가능
+ 
+  ex) FileOutputStream fos = new FileOutputStream("c:/temp/test1.txt");
+      Writer writer = new OutputStreamWriter(fos);
