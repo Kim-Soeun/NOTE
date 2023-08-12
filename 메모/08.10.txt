@@ -44,6 +44,7 @@
 
 ** OutputStream **
 
+
 - 바이트 기반 출력 스트림의 최상위 클래스로 추상 클래스
 - 모든 바이트 기반 출력 스트림 클래스는 OutputStream 클래스 상속받아 만들어짐
 
@@ -51,6 +52,7 @@
                           	  OutputStream
 
      FileOutputStream     PrintStream        BufferOutputStream   DataOutputStream
+
 
 
 - OutputStream 클래스에는 모든 바이트 기반 출력 스트림이
@@ -63,4 +65,29 @@
       close() : 출력 스트림을 닫음
 
 
+
+
+
+** InputStream **
+
+
+- 바이트 기반 입력 스트림의 최상위 클래스로 추상 클래스
+- 모든 바이트 기반 입력 스트림은 InputStream 상속받아서 만들어짐
+
+
+			           InputStream
+
+    FileInputStream    		BufferedInputStream  		 DataInputStream
+
+
+- InputStream 클래스에는 바이트 기반 입력 스트림이 
+  기본적으로 가져야 할 메소드가 정의되어 있음
+
+  ex) read() : 1byte를 읽고 int 타입(4바이트)으로 리턴함
+               리턴된 4바이트 중 1바이트에만 데이터 들어 있음
+               더 이상 읽을 수 없는 경우 -1을 반환
+      read(byte[] b) : 읽은 바이트를 매개값으로 주어진 배열에 저장하고 읽은 바이트 수 리턴
+      read(byte[] b, int off, int len) : len개의 바이트를 읽고 매개값으로 주어진 배열에서 
+                                         b[off]부터 len개까지 저장, 읽은 바이트 수 리턴
+      close() : 입력 스트림 닫음
 
