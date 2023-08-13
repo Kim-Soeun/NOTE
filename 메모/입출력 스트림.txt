@@ -41,8 +41,12 @@
            큐(queue)의 FIFO(Fist in First Out) 구조 
 
 
+- 바이트 기반 스트림 : 그림, 멀티미디어 등의 데이터를 읽고 출력할 때 사용
+                    (InputStream, OutputStream)
+- 문자 기반 스트림 : 문자 데이터를 읽고 출력할 때 사용
+                    (Reader, Writer)
 
-** OutputStream **
+1. OutputStream 
 
 
 - 바이트 기반 출력 스트림의 최상위 클래스로 추상 클래스
@@ -67,7 +71,7 @@
 
 
 
-** InputStream **
+2. InputStream 
 
 
 - 바이트 기반 입력 스트림의 최상위 클래스로 추상 클래스
@@ -91,7 +95,7 @@
 
 
 
-** Writer **
+3. Writer 
 
 
 - 문자 기반 출력 스트림의 최상위 클래스로 추상 클래스
@@ -117,7 +121,7 @@
 
 
 
-** Reader **
+4. Reader 
 
 - 문자 기반 입력 스트림의 최상위 클래스로 추상 클래스
 - 모든 문자 기반 입력 스트림은  Reader 클래스를 상속받아 만들어짐
