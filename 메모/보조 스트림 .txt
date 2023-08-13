@@ -11,21 +11,20 @@
 - 보조 스트림 생성시 자신이 연결될 스트림을 다음과 같이 생성자의 매개값으로 제공
 
  ex)  보조스트림 변수 = new 보조스트림(연결스트림)
-        Input Stream is = FileInputStream('c:/temp/test.txt");
+        InputStream is = FileInputStream('c:/temp/test.txt");
      InputStreamReader reader = new InputStreamReader(is);
 
 - 생성자 매개값은 InputStream, OutputStream, Reader, Writer 외에 다른 보조 스트림도 가능
 
- ex) Input Stream is = FileInputStream('c:/temp/test.txt");
+ ex) InputStream is = FileInputStream('c:/temp/test.txt");
      InputStreamReader reader = new InputStreamReader(is);
      BufferedReader br = new BufferedReader(reader);
 
 
 < 문자 변환 보조 스트림 >
 
-- 소스 스트림이 바이트 기반 스트림(InputStream, OutputStream, FileInputStream, 
-  FileOutputStream)이면서 입출력 데이터가 문자라면 Reader와 Writer로 변환해서 사용
-
+- 바이트 기반 스트림(InputStream, OutputStream, FileInputStream, FileOutputStream)을
+   문자로 변환해 주는 보조 스트림
 
 
 1. OutputStreamWriter
@@ -35,3 +34,104 @@
  
   ex) FileOutputStream fos = new FileOutputStream("c:/temp/test1.txt");
       Writer writer = new OutputStreamWriter(fos);
+
+
+
+
+
+2. InputStreamReader
+
+- 바이트 기반 입력 스트림에 연결되어 문자 입력 스트림인 Reader로 변환하는 보조 스트림
+- 예를 들어 파일 입력을 위한 바이트 기반 FileInputStream을 Reader타입으로 변환 가능
+
+  ex) FileInputStream fis = new FileInputStream("c:/temp/test1.txt");
+     Reader reader = new InputStreamReader(fis);
+
+
+
+< 성능 향상 보조 스트림 >
+
+- 컴퓨터 성능이 뛰어나도 디스크이 입출력이 늦어지면 프로그램 실행 속도는 늦어짐
+- 프로그램이 입출력 소스와 직접 작업하지 않고 중간에 메모리 버퍼와 작업함으로써
+  실행 성능 향상시킬 수 있음
+- 출력 스트림이 내부에 기본적으로 가진 작은 버퍼에 메모리 버퍼를 추가하여 실행 성능 향상
+
+
+1. BufferedOutputStream & BufferedWriter
+
+- BufferedOutputStream : 바이트 기반 출력 스트림에 연결되어 버퍼를 제공해주는 보조스트림
+- BufferedWriter : 문자 기반 출력 스트림에 연결되어 버퍼를 제공해주는 보조 스트림
+
+-> 프로그램에 전송한 데이터를 내부 버퍼에 쌓아 두었다가 버퍼가 꽉 차면, 버퍼의 모든 데이터를
+    한꺼번에 보냄. 메모리 버퍼로 데이터를 고속 전송하므로 출력 성능이 향상되는 효과
+
+- 매개값으로 준 출력 스트림과 연결되어 추가적인 내부 버퍼 제공
+
+  ex) BufferedOutputStream bos = new BufferedOutputStream(바이트 기반 출력 스트림);
+        BufferedWriter bw = new BufferedWriter(문자 기반 출력 스트림);
+
+
+
+2. BufferedInputStream & BufferedReader
+
+- BufferedInputStream : 바이트 기반 입력 스트림에 연결되어 버퍼를 제공해주는 보조 스트림
+- BufferedReader : 문자 기반 입력 스트림에 연결되어 버퍼를 제공해주는 보조 스트림
+
+-> 자신의 내부 버퍼 크기만큼 데이터를 미리 읽고 버퍼에 저장해둠, 프로그램은 외부의   
+   입력 소스로부터 직접 읽는 대신 버퍼로부터 읽음으로써 읽기 성능이 향상
+
+
+
+
+3. 기본 타입 입출력 보조 스트림
+
+- DataInputStream, DataOutputStream
+- 기본 타입인 boolean, char, short, int, lont, float, double을 입출력할 수 있음
+- 객체 생성 : 연결한 바이트 입출력 스트림을 생성자의 매개값으로 주면 됨
+   
+ ex) DataInputStream dis = new DataInputStream(바이트 기반 입력 스트림);  
+      DataOutputStream dos = new DataOutputStream(바이트 기반 출력 스트림);
+
+- 메소드
+ 
+   - DataInputStream : readBoolean(), readByte(), readChar(), readDouble(), readFloat()
+                     readInt(), readLong(), readShort(), readUTF()
+ 
+  - DataOutputStream : writeBoolean(boolean v), writeByte(int v), writeChar(int v), 
+                       writeDouble(double v), writeFloat(float v), writeInt(int v)
+                       writeLong(long v), writeShort(int v), writeUTF(String str)
+
+
+- 주의점 : 데이터 타입 크기가 모두 다르므로 DataOutputStream 으로 출력한 데이터를 다시
+               DataInputStream으로 읽어올 때는 출력한 순서와 동일한 순서로 읽어야 함
+
+ ex) 출력: int - boolean- double  -> 입력 : int - boolean - double
+
+
+
+<프린터 보조 스트림>
+
+- PrintStream, PrintWriter
+- 프린터와 유사하게 출력하는 print(), println() 메소드 가지고 있는 보조 스트림
+- 연결한 출력 스트림을 생성자의 매개값으로 받음
+ 
+ ex) PrintStream ps = new PrintStream(바이트 기반 출력 스트림);
+      PrintWriter pw = new PrintWriter(문자 기반 출력 스트림);
+
+
+
+<객체 입출력 보조 스트림>
+
+- ObjectOutputStream : 객체 직렬화(객체르 바이트 배열로 만드는 것) 
+- ObjectInputStream : 객체 역직렬화(바이트 배열을 다시 객체로 복원)
+
+- 다른 보조스트림들과 마찬가지로 연결할 바이트 입출력 스트림을 매개값으로 가짐
+
+  ex) ObjectOutputStream oos = new ObjectOutputStream(바이트출력스트림);
+      ObjectInputStream ois = new ObjectInputStream(바이트입력스트림);
+
+- writeObject() : 객체를 직렬화해서 출력 스트림으로 보내는 메소드
+
+- java.io.Serializable 인터페이스를 구현한 객체만 직렬화함
+
+   ex) public class XXX implements Serializable{ ... }
