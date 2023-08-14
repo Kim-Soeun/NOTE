@@ -1,0 +1,185 @@
+<컬렉션 프레임워크>
+
+-  객체들을 효율적으로 추가, 삭제, 검색할 수 있도록 인터페이스와 구현 클래스를
+   java.util 패키지에서 제공함
+
+- 데이터를 저장하는 자료 구조와 데이터를 처리하는 알고리즘을 구조화하여 클래스로 구현
+
+
+
+
+<컬렉션 클래스> 
+
+  1. List 컬렉션
+
+- 순서를 유지하고 저장, 데이터 중복 저장 가능
+- 객체를 인덱스로 관리, 저장 용량이 자동으로 증가, 객체 저장시 자동 인덱스 부여
+- 구현 클래스 : Vector, ArrayList, LinkedList, Stack, Queue
+
+- 사용가능한 메소드
+
+ ex) List<String> list = new ArrayList<String>();
+     list.add("Java");			// String 객체 저장
+     int size = list.size();		// 저장된 총 객체수 얻기
+     String skill = list.get(2);	// 2번 인덱스의 객체 얻기
+     list.remove(2);			// 2번 인덱스 객체 삭제
+
+
+
+** ArrayList **
+
+- List 인터페이스의 대표적인 구현 클래스
+
+- 객체 생성 방법 : List<String> list = new ArrayList<String>();
+                   List<String> list = new ArrayList<>();
+
+- 기본 생성자로 ArrayList 객체 생성하면 내부에 10개의 객체를 저장할 수 있는
+  초기 용량 가짐, 저장되는 객체 수 늘어나면 자동으로 용량 증가
+
+- 객체 추가하면 0번 인덱스부터 차례대로 저장
+
+- 인덱스 객체 제거하면 바로 뒤 인덱스부터 마지막까지 모두 1씩 당겨짐
+
+- 저장된 모든 객체 하나씩 가져오는 방법
+ 
+ ex) for(int i=0; i<list.size(); i++) {
+    String str = list.get(i);
+    }
+
+ ex) for(String str : list){ 
+    }
+
+
+
+
+** Vector **
+
+- 객체 생성 방법 : List<E> list = new Vector<E>();
+		   List<E> list = new Vector<>();
+
+- 동기화된 메소드로 구성되어 있기 때문에 멀티 스레드가 동시에 메소드 실행 X
+- 하나의 스레드가 메소드를 실행 완료해야만 다른 스레드가 메소드를 실행할 수 있음
+- 멀티 스레드 환경에서 안전하게 객체 추가, 삭제 가능
+
+
+
+
+** Linked List **
+
+- ArrayList와 사용 방법 같으나 내부 구조 다름
+- 객체 생성 방법 : List<E> list = new LinkedList<E>();
+                   List<E> list = new LinkedList<>();
+
+- 인덱스 번호 있지 않음
+- 특정 인덱스의 객체를 제거하면 앞뒤 링크만 변경되고 나머지 링크는 변경되지 않음
+  (체인 형식으로 이루어져 있어 순방향, 역방향 검색 가능, 수정 빈번할 때 ArrayList보다 빠름)
+- 끝에서부터 추가 또는 삭제하는 경우는 ArrayList가 빠르지만, 
+  중간에 추가, 삭제하는 경우는 앞뒤 링크만 정보 변경하면 되는 LinkedList가 더 빠름
+
+
+
+
+   + ArrayList & LinkedList 차이
+
+  - ArrayList : 하나의 인덱스 요소 제거시 뒤에 위치한 인덱스들 하나씩 당겨짐
+                그래서 순차적인 데이터 추가, 삭제가 LinkedList보다 빠름
+  - LinkedList : 하나의 객체 삭제되어도 나머지 모든 객체 위치 당기지 않음
+                그래서 중간에 불연속적인 데이터의 저장, 추가, 삭제가 ArrayList 보다 빠름
+  
+
+
+  2. Set 컬렉션
+
+- 순서를 유지하지 않고 저장, 데이터 중복 저장 안됨
+- 하나의 null만 저장 가능
+- 구현 클래스 : HashSet, TreeSet
+- 인덱스로 관리하지 않기 때문에 인덱스를 매개값으로 갖는 메소드가 없음
+
+- 사용가능한 메소드
+
+  ex) Set<String> set = new HashSet<>();
+      set.add("홍길동");       // 객체 추가
+      set.remove("홍길동");    // 객체 삭제
+      set.contains("신용권");  // 주어진 객체 저장 여부 확인(boolean 타입)
+      set.isEmpty();           // 컬렉션이 비어있는지 좟(boolean 타입)
+      int size = set.size();              // 객체 수 
+      set.clear();             // 저장된 객체 모두 삭제
+
+ 
+
+  + Iterator
+
+
+- 모든 컬렉션 프레임워크에 공통으로 사용 가능
+- 컬렉션 프레임워크에서 쉽게 값을 가져오고 제거할 수 있음
+- 3개의 메소드
+
+  1. Iterator.hasNext() : Iterator 안에 다음 값 들어있는지 확인
+ 			  가져올 다음 값 있으면 true, 없으면 false 리턴
+  2. Iterator.next() : Iterator 다음 값 가져오기
+  3. Iterator.remove() : 컬렉션에서 값 삭제
+
+ ex) Set<String> set = ...;
+     Iterator<String> iterator = set.iterator();
+     while(iterator.hasNext()) {    // 저장된 객체 수만큼 루핑
+       // String 객체 하나를 가져옴
+     String str = iterator.next();
+  }
+
+
+
+** HashSet **
+
+- 객체 생성 방법 : Set<String> set = nes HashSet<String>();
+		   Set<String> set = nes HashSet<>();
+
+- 순서 없이 저장하고 동일한 객체는 중복 저장 x
+
+- 인스턴스가 달라도 내용이 동일하면 같은 객체로 간주하고 중복 저장하지 않기 위해
+  hashCode()와 equals() 메소드 재정의
+
+
+
+
+  3. Map 컬렉션
+
+- 키와 값으로 구성된 Map.Entry 객체를 저장하는 구조, 순서가 없음
+- Entry는 Map 인터페이스 내부에 선언된 중첩 인터페이스
+
+- 키는 중복 저장 x, 값은 중복 저장 가능
+ (기존에 저장된 키와 동일한 키로 값을 저장하면 기존의 값 없어지고 새로운 값 대체)
+
+
+
+- 구현 클래스 : HashMap, TreeMap, Hashtable, Properties
+
+
+- 사용가능한 메소드 
+
+ ex) Map<String, Integer> map = new HashMap(String, Integer>();
+     map.put("홍길동", 30);     // 객체 추가
+     map.containsKey("홍길동"); // 주어진 키가 있는지 여부 확인(boolean 타입)
+     map.containsValue(30)      // 주어진 값이 있는지 여부 확인(boolean 타입)
+     Set<K> keySet()            // 저장된 모든 key를 Set에 저장하여 반환 (데이터 반환)
+     Set<Map.Entry<k,v>>entrySet() // 저장된 키와 값을 엔트리(키와 값의 결합)의 형태로 
+                                           Set에 저장하여 반환(데이터 반환)
+	   	
+
+** HashMap **
+
+
+- 객체 생성 방법 : Map<String, Integer> map = new HashMap<String, Integer>();
+		   Map<String, Integer> map = new HashMap<>();
+
+- 동기화를 지원하지 않음(단일 스레드 사용하기 좋은 구조)
+
+
+
+
+** Hashtable **
+
+
+- 객체 생성 방법 : Map<String, Integer> map = new Hashtable<String, Integer>();
+		   Map<String, Integer> map = new Hashtable<>();
+
+- 동기화를 지원(멀티스레드 환경에서 사용하기 좋은 구조)
