@@ -1,6 +1,6 @@
 < 데이터베이스 생성 >
 
- ex) create database test; -- 데이터베이스 생성
+ ex) create database test; -- 'test' 이름의 데이터베이스 생성
                            -- 생성 후 한글처리 해주기
      use test;             -- 활성화
 
