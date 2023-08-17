@@ -23,23 +23,23 @@
 
 1. 데이터 정의어(DDL)
 
-- CREATE : Schema, Domain, Table, View, Index를 정의함
+- CREATE : Schema, Domain, Table, View, Index를 정의
 
-- ALTER : Table에 대한 정의를 변경하는 데 사용함
+- ALTER : Table에 대한 정의를 변경하는 데 사용
 
-- DROP : Schema, Domain,Table, View, Index를 삭제함 
+- DROP : Schema, Domain,Table, View, Index를 삭제
 
 
 
 2. 데이터 조작어(DML)
 
-- SELECT : 테이블에서 조건에 맞는 튜플을 검색함
+- SELECT : 테이블에서 조건에 맞는 튜플을 검색
 
-- INSERT : 테이블에 새로운 튜플을 삽입함
+- INSERT : 테이블에 새로운 튜플을 삽입
 
-- DELETE : 테이블에서 조건에 맞는 튜플을 삭제함
+- DELETE : 테이블에서 조건에 맞는 튜플을 삭제
  
-- UPDATE : 테이블의 조건에 맞는 튜플의 내용을 변경함
+- UPDATE : 테이블의 조건에 맞는 튜플의 내용을 변경
 
 
 
@@ -47,11 +47,11 @@
 
 - COMMIT : 데이터베이스 조작 작업이 정상적으로 완료되었음을 관리자에게 알려줌
 
-- ROLLBACK : 데이터베이스 조작 작업이 비정상적으로 종료되었을 때 원래의 상태로 복구함
+- ROLLBACK : 데이터베이스 조작 작업이 비정상적으로 종료되었을 때 원래의 상태로 복구
 
-- GRANT : 데이터베이스 사용자에게 사용권한을 부여함
+- GRANT : 데이터베이스 사용자에게 사용권한을 부여
  
-- REVOKE : 데이터베이스 사용자의 사용권한을 취소함
+- REVOKE : 데이터베이스 사용자의 사용권한을 취소
 
 
 
