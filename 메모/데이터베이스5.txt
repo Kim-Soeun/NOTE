@@ -1,0 +1,133 @@
+< SQL 데이터 정의문 >
+
+1. 테이블 생성 CREATE문
+
+
+  - 데이터 유형
+   
+     1) 문자형
+       
+        - CHAR(길이) : 고정길이 문자열, 남은공간 공백으로 채움
+        - VARCHAR(길이) : 가변길이 문자열, 남은 공간이 없음
+        - TEXT : 긴 문자열(255자 이상)
+
+     2) 정수형
+ 
+        - INT : 소수점이 없는 기본 정수형
+        - SMALLINT : 소수점이 없는 작은 정수형
+
+     3) 실수형
+
+        - DECIMAL(전체길이, 소수점이하길이) : 고정 소수점을 포함한 실수
+        - FLOAT(전체길이, 소수점이하길이) : 단정도 부동 소수점 실수
+        - DOUBLE(전체길이, 소수점이하길이) : 배정도 부동 소수점 실수
+
+     4) 날짜형
+	DATE : 날짜(연도-월-일)
+ 	DATETIME : 날짜(연도-월-일 시:분:초)  
+	TIME : 시간(시,분,초)
+	YEAR : (날짜(연도)
+
+
+
+  - CREATE TABLE 형식
+   
+   ex) create table 과목2(
+		과목번호 char(4) not null primary key,
+    		이름 varchar(20) not null,
+    		강의실 char(5) not null,
+    		개설학과 varchar(20) not null,
+    		시수 int not null
+	);
+	
+  - DESC 명령문
+
+     : 생성된 테이블의 구조를 확인하려면 DESC 명령문 실행
+
+  
+  - SHOW CREATE TABLE 테이블_이름
+ 
+     : 이미 생성된 테이블의 생성 SQL문을 확인할 수 있음
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2. 테이블 수정 ALTER문
+
+         : 생성된 테이블을 ALTER TABLE 명령문으로 수정할 수 있음
+
+
+   - ALTER TABLE문의 형식
+
+   ex) ALTER TABLE 학생2 ADD 등록날짜 DATETIME NOT NULL DEFAULT '2019-12-30';
+       SELECT * FROM 학생2;
+       -- 학생2 테이블에 새로운 등록날짜 열을 추가
+
+
+   - 열 이름 변경
+
+   ex) alter table 학생2 change 이름 학생이름 varchar(20);
+       -- 학생2 테이블에서 '이름'을 '학생이름'으로 변경
+
+
+   -- 테이블 이름 변경
+
+   ex) alter table 학생2 rename to 재학생2;
+       -- 테이블 '학생2'를 '재학생2'로 변경
+
+
+3. 테이블 삭제 DROP문
+
+        : 생성된 테이블 삭제
+
+
+   -- DROP TABLE문의 형식
+
+   ex) -- 수강2 테이블은 과목2 테이블과 재학생2 테이블을 외래키로 참조하고 있음
+
+       drop table 과목2;    // 오류 : 수강2 테이블이 과목2 테이블을 참조하고 있으므로 삭제 안됨
+       drop table 수강2;    // 참조 테이블(자식 테이블) 먼저 삭제
+       drop table 과목2;    // 그 후 부모 테이블 삭제
+
+
+
+< SQL 데이터 제어문 >
+
+
+1. 사용자 및 권한 관리
+
+   - 계정 생성 : CREATE USER
+ 
+    ex) create user 'user1'@'127.1.1.1' identified by '1111';
+        create user 'user2'@'localhost' identified by '2222';
+        -- MySql 서버가 기동 중인 로컬 호스트에서만 접속 허용
+
+        create user 'user3'@'192.168.0.25' identified by '3333';
+        -- 특정 ip 주소만 접속 허용
+
+        create user 'user4'@'%' identified by '4444';
+        -- 어느 컴퓨터나 자유롭게 접속 허용
+
+    - 권한 부여 : GRANT
+
+    ex) grant insert,update,delete on univdb.* to 'user1'@'127.0.0.1';
+	-- 'univDB' 데이터베이스의 모든 테이블들에 insert,update,delete 기능에 대해 user1이 접근 권한 가짐
+	-- 127.0.0.1 호스트에서 접근 가능 
+
+	grant all on *.* to 'user4'@'%' with grant option;
+	-- 모든 데이터베이스의 모든 테이블들에 접근권한을 user4에게 부여
+	-- user4는 다른 사용자에게 권한도 부여할 수 있음
+
+	grant select on univdb.학생 to 'user2'@'localhost';
+	-- 'univDB' 데이터베이스의 학생 테이블에 접근권한을 user2에게 부여
+	-- localhost로 접근 가능
