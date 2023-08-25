@@ -100,34 +100,3 @@
        drop table 과목2;    // 그 후 부모 테이블 삭제
 
 
-
-< SQL 데이터 제어문 >
-
-
-1. 사용자 및 권한 관리
-
-   - 계정 생성 : CREATE USER
- 
-    ex) create user 'user1'@'127.1.1.1' identified by '1111';
-        create user 'user2'@'localhost' identified by '2222';
-        -- MySql 서버가 기동 중인 로컬 호스트에서만 접속 허용
-
-        create user 'user3'@'192.168.0.25' identified by '3333';
-        -- 특정 ip 주소만 접속 허용
-
-        create user 'user4'@'%' identified by '4444';
-        -- 어느 컴퓨터나 자유롭게 접속 허용
-
-    - 권한 부여 : GRANT
-
-    ex) grant insert,update,delete on univdb.* to 'user1'@'127.0.0.1';
-	-- 'univDB' 데이터베이스의 모든 테이블들에 insert,update,delete 기능에 대해 user1이 접근 권한 가짐
-	-- 127.0.0.1 호스트에서 접근 가능 
-
-	grant all on *.* to 'user4'@'%' with grant option;
-	-- 모든 데이터베이스의 모든 테이블들에 접근권한을 user4에게 부여
-	-- user4는 다른 사용자에게 권한도 부여할 수 있음
-
-	grant select on univdb.학생 to 'user2'@'localhost';
-	-- 'univDB' 데이터베이스의 학생 테이블에 접근권한을 user2에게 부여
-	-- localhost로 접근 가능
