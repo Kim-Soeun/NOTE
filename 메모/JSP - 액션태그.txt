@@ -1,0 +1,190 @@
+< 액션 태그 >
+
+
+
+1. 액션 태그
+
+    - JSP의 표준 태그, 페이지 사이에서 이동을 제어하거나 자바빈을 생성할 때 주로 사용
+ 
+    - XML 문법 따름
+
+    - 반드시 종료 태그 사용해야 함
+
+    - 액션 태그 사이에 주석을 사용하면 에러 발생
+
+    - 액션 태그에 속성값 부여할 때는 표현식 <%= %> 을 사용할 수 있음
+
+
+
+2. <jsp:include>
+
+
+    : 외부 jsp 파일을 현재 jsp 파일로 포함시키는 기능
+
+ 
+
+     1)  include 지시어와 <jsp:include> 액션태그 
+
+    				지시어                                          액션 태그
+
+  형식       	  <%@ include file="포함할 파일의 경로"%>       <jsp:include page="포함할 파일의 경로" />
+
+  표현식      	  표현식 사용 불가				 표현식 사용 가능
+ 
+  포함 방식       페이지 자체를 현재 페이지에 포함시킨 후       실행의 흐름을 포함시킬 페이지로 이동시킨 후  
+                  컴파일 진행					실행한 결과를 현재 페이지에 포함시킴
+
+  변수           포함시킨 파일에서 생성한 변수 사용 가능        포함시킨 파일에서 생성한 변수 사용 불가
+
+  page 영역      공유됨						공유되지 않음
+
+  request 영역   공유됨						공유됨
+
+
+
+      - 지시어를 통한 인클루드는 페이지를 원본 그대로 현재 페이지에 먼저 포함시킨 후 컴파일
+
+      - 액션 태그를 사용하면 포함시킬 페이지로 요청의 흐름이 이동되어 캄파일을 진행,
+        컴파일된 결과물을 현재 페이지에 삽입
+
+
+     2) 지시어와 액션 태그 방식 비교
+
+    
+      - include 지시어로 파일 포함시킨 경우
+
+           : 표현식 사용하면 에러 발생
+             변수 정상적으로 출력
+             page 영역과 request 영역에 저장된 속성 값 정상적으로 가져와 출력 가능
+
+      - 액션 태그로 파일 포함시킨 경우
+
+           : 표현식 지원하기 때문에 에러 발생 x
+             변수 출력  x
+             request 영역은 공유되나 page 영역 공유 x
+
+
+
+3. <jsp:forward>
+
+
+     - 하나의 JSP 페이지에서 다른 JSP페이지로 요청 처리를 전달
+       
+     - 다음 페이지로 요청을 전달하는 것이 목적
+       
+     - 이동된 페이지와 request 영역을 공유
+       
+     - URL 변경되지 않음  
+
+
+4. <jsp:useBean>, <jsp:setProperty>, <jsp:getProperty>
+
+   
+      ** 자바빈즈 개별 규약 **
+
+      - 기본 패키지 이외의 패키지에 속해 있어야 함
+
+      - 멤버 변수(속성, property)의 접근 지정자는 private으로 선언
+
+      - 기본 생성자가 있어야 함
+
+      - 멤버 변수에 접근할 수 있는 게터/세터 메소드가 있어야 함
+
+      - 게터/세터 메소드의 접근 지정자는 public으로 선언
+
+
+       1) 자바빈즈 생성
+
+           ** 사용법 **
+
+           <jsp:useBean id="자바빈즈 이름" class="사용할 패키지의 클래스명" scope="저장될 영역" />
+
+	   - id : 자바빈즈 객체의 이름을 지정, 같은 id로 이미 생성된 객체가 있다면 해당 객체를 사용
+
+           - class : 사용하려는 자바비늦 객체의 실제 패키지명과 클래스명을 지정
+
+           - scope : 자바빈즈가 저장될 내장 객체 영역을 지정    
+
+	   - 자바빈즈를 생성할 때 기본 생성자 호출
+
+
+        2) 멤버 변수 값 설정/추출
+
+           ** 멤버 변수 값 설정 **
+
+          <jsp:setProperty name="자바빈즈 이름" property="속성명(멤버 변수)" value="설정할 값 />
+
+          - name : <jsp:useBean>의 id 속성에 지정한 자바빈즈의 이름을 지정
+
+          - property : 자바빈즈의 멤버 변수명을 지정, property="*"라고 쓰면 form의 하위 요소와 일치하는
+                       자바빈즈의 모든 속성에 사용자가 전송한 값이 설정됨, 이때는 value 속성 생략 가능
+
+          - value : 멤버 변수에 설정할 값 지정 
+       
+
+
+           ** 멤버 변수 값 추출 ** 
+
+          <jsp:getProperty name="자바빈즈 이름" property="속성명(멤버 변수)" />
+
+
+
+	 3) 한글 인코딩 문제 해결
+
+            : request.setCharacterEncoding() 대신 한 번의 설정으로 모든 페이지에 한글 적용할 수 있는 방법
+
+            : <filter></filter>  <filter-mapping></filter-mapping> 태그 사용하기     p.248 참고
+
+
+5. <jsp:param>
+
+
+        : <jsp:include>나 <jsp:forward>를 사용할 때 다른 페이지에 값을 전달해주는 액션 태그
+          전달할 수 있는 값은 String 뿐, 다른 타입의 객체를 전달할 때는 내장 객체의 영역 이용해야 함
+
+	
+	1) 포워드되는 페이지로 매개변수 전달하기
+
+        ex)
+ 
+
+        - 메인 페이지 -
+
+	<jsp:useBean id="person" class="common.Person" scope="request"/>
+	<%
+		String pValue = "방랑시인";
+	%>
+        <jsp:forward page="paramForward.jsp?param1=김병연">
+	     <jsp:param value="경기도 양주" name="param2"/>
+	     <jsp:param value="<%=pValue %>" name="param3"/>
+        </jsp:forward>
+
+
+	- 포워드 되는 페이지 -	
+
+	<jsp:useBean id="car" class="common.Car" scope="request"></jsp:useBean>
+	<ul>
+		<li>자동차 회사 : <%= request.getParameter("carCompany") %></li>
+		<li>자동차 최고속도 : <%= request.getParameter("carMaxSpeed") %></li>
+	</ul>
+
+
+
+	2) 인클루드되는 페이지로 매개변수 전달하기
+
+	ex) 
+
+
+	- 인클루드하는 페이지로 매개변수 전달
+
+ 	<jsp:include page="Inc/ParamInclude.jsp">
+		<jsp:param value="강원도 영월" name="loc1"/>
+		<jsp:param value="김삿갓면" name="loc2"/>
+	</jsp:include>
+
+
+
+	- 인클루드되는 페이지
+
+	<%= request.getParameter("loc1") %>에
+	<%= request.getParameter("loc2") %>이 있습니다.
