@@ -1,0 +1,60 @@
+< 게시판 페이징 기능 넣기 >
+
+
+1. 페이징을 위한 설정
+
+	- 한 페이지에 출력할 게시물의 개수 
+          ex) POSTS_PAGE = 10
+
+	- 한 화면(블록)에 출력할 페이지 번호의 개수
+          ex) BLOCK_PAGE = 5
+
+
+
+2. 페이징 구현 절차
+
+	1) board 테이블에 저장된 전체 레코드 수를 카운트
+	   ex) 전체 게시물 : 105
+
+	2) 각 페이지에서 출력할 게시물의 범위를 계산
+	   
+	   - 범위 시작값 : (현재 페이지 - 1) * POSTS_PAGE + 1
+	    ex)  현재 1페이지일 때 : (1 - 1) * 10 + 1 = 1
+
+	   - 범위 종료값 : (현재 페이지 * POSTS_PAGE)
+ 	    ex)  현재 2페이지일 때 : 2 * 10 = 20
+	
+ 	3) 전체 페이지 수를 계산
+	
+	  : 이때 계산된 결과는 무조건 올림 처리함
+
+	  - 계산식 : Math.ceil(전체 게시물 수 / POSTS_PAGE)
+	    ex) Math.ceil(105 / 10) = 11
+
+
+	4) '이전페이지 블록 바로가기' 출력
+
+	  - 계산식 : ((현재 페이지 - 1) / PAGES_BLOCK) * PAGES_BLOCK + 1
+	     ex) 현재 5페이지일 때 
+		 pageTemp = (5 - 1)/5) * 5 + 1 = 1
+
+	5) 각 페이지 번호를 출력
+
+	   : 위에서 계산한 pageTemp를 BLOCK_PAGE만큼 반복하면서 +1 연산 후 출력
+	    
+	    ex) pageTemp가 1일 때 : "1 2 3 4 5" 출력
+		pageTemp가 2일 때 : "6 7 8 9 10" 출력
+
+
+
+3. 페이징용 쿼리문 작성
+
+   select * from (
+	select Tb.*, rownum rNum from (		    -- rownum 추가해서 순번 부여(2)		
+	    select * from board order by num desc   -- board 테이블의 모든 게시물을 num에 대해 내림차순으로 정렬(1)
+	) Tb
+   )
+   where rNum between 1 and 10;			    -- rownum 범위가 1 ~ 10인 게시물 출력(3)
+
+
+
