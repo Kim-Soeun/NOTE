@@ -139,3 +139,147 @@
 
 	    <c:forEach var="변수명" items="컬렉션 혹은 배열" />
 	ex) <c:forEach items="<%=rgba%>" var="c"></c:forEach>
+
+
+    6) <c:forTokens> 태그
+
+	: 구분자를 기준으로 문자열을 나눠 토큰의 개수만큼 반복
+
+
+	** 형식 **
+	
+	<c:forTokens items="문자열" delims="문자열 구분자" var="변수명" />
+
+	ex) <c:forTokens items="red,green" delims="," var="color" />
+		<span style="color: ${color};">${color}</span><br>
+	    </c:forTokens>			                   --> red green 각각 출력
+
+
+
+    7) <c:import> 태그
+
+	: <jsp:include> 액션 태그와 같이 외부 파일을 현재 위치에 삽입할 때 사용
+	  같은 웹 어플리케이션에 속하지 않은 외부의 페이지도 삽입 가능
+
+	** 형식 **
+
+	<c:import url="페이지 경로 혹은 URL" scope="영역" />
+
+	ex) <c:import url="../inc/OtherPage.jsp" var="contents">
+		<c:param name="user_param1" value="JSP"/>
+	    </c:import>
+
+
+    8) <c:redirect> 태그
+
+ 	: response 내장 객체의 sendRedirect()와 동일하게 페이지 이동 처리
+
+	** 형식 **
+
+	<c:redirect url="이동할 경로 및 URL" />
+
+	ex) <c:redirect url="../inc/OtherPage.jsp"></c:redirect>
+
+
+
+    9) <c:url> 태그
+
+	: 지정한 경로와 매개변수를 이용해서 컨텍스트 루트를 포함한 URL을 생성
+
+	** 형식 **
+
+	<c:url value="설정한 경로" scope="영역" />
+
+	ex) <c:url value="/11JSTL/inc/OtherPage.jsp" var="url"/>
+	    <a href="${url}">다른 페이지 연결하기</a>
+
+
+    10) <c:out> 태그
+
+	: JSP의 표현식처럼 변수를 출력할 때 사용
+
+	** 형식 **
+
+	<c:out value="출력할 변수" default="기본값" escapeXaml="특수 문자 처리 유무" />
+
+	ex) <c:out value="${iTag}" escapeXml="false"></c:out>	           
+	    -->  escapeXml false로 설정하면 html 적용됨, 기본값은 true
+	    
+	    <c:out value='${param.name}' default="넘겨온 값이 없습니다."/> 
+	    -->  default : value에 값이 없으면 default 출력
+
+
+
+    11) <c:catch> 태그
+
+	** 형식 **
+
+	<c:catch var="변수명">실행 코드</c:catch>
+
+	ex) <c:catch var="eMessage">
+		<%
+		    int result = num1 / 0;
+		%>
+	    </c:catch>
+	    예외 내용 : ${eMessage} 	-- 예외 내용 출력
+
+
+---------------------------------------------------------------------------------------------
+
+
+1. 국제화(Formatting) 태그
+
+	: 국가별로 다양한 언어, 날짜, 시간 숫자 형식을 설정할 때 사용
+	  다음 지시어 선언 필요함
+
+	 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+
+    1) 숫자 포맷팅 및 파싱
+
+	
+	** 형식 **
+
+	<fmt:formatNumber value="출력할 숫자" type="문자열 양식 패턴" var="변수 설정"
+	  groupingUsed="구분 기호 사용 여부" pattern="숫자 패턴" scope="영역" />
+
+	ex) <fmt:formatNumber value="${number1}" groupingUsed="false"/>   --> 12345
+	    <fmt:formatNumber value="${number1}" type="currency"/>        --> ₩12,345
+
+
+	<fmt:parseNumber value="파싱할 문자열" type="출력 양식" var="변수 설정"
+	  integerOnly="정수만 파싱" pattern="패턴" scope="영역" />
+
+	ex) <fmt:parseNumber value="${number2}" pattern="0,000.00" var="print3"/> --> 6789.01
+	    <fmt:parseNumber value="${number2}" integerOnly="true" var="print4"/> --> 6789
+
+
+
+    2) 날짜 포맷 및 타임존  
+
+	** 형식 **
+
+	<fmt:formatDate value="출력할 날짜" type="출력 양식" var="변수 설정"
+	  dateStyle="날짜 스타일" timeStyle="시간 스타일" pattern="날짜 패턴" scope="영역 />
+	
+
+	ex) <fmt:formatDate value="${today}" type="date" dateStyle="full"/> --> 2023년 10월 12일 목요일
+	    <fmt:formatDate value="${today}" type="date" dateStyle="long"/> --> 2023년 10월 12일
+	    <fmt:formatDate value="${today}" type="date" dateStyle="default"/> -->  2023. 10. 12.
+	
+
+	ex) <fmt:timeZone value="America/Chicago">         --> 시카고 현재 시간 출력
+		<fmt:formatDate value="${today}" type="both" pattern="yyyy-MM-dd HH:mm:ss"/>
+	    </fmt:timeZone>
+	
+
+
+    3) 로케일 설정
+
+	: 국가별로 다른 통화 기호나 날짜를 표현할 때 사용
+
+	ex) <fmt:setLocale value="ja_JP"/>
+	    <fmt:formatNumber value="99999" type="currency"></fmt:formatNumber> --> ￥99,999 출력
+	
+	
+ 	
